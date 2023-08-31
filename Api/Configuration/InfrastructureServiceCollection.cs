@@ -1,7 +1,4 @@
-﻿using Application.QueryHandlers;
-using Domain.Repositories.Command;
-
-namespace Api.Configuration;
+﻿namespace Api.Configuration;
 
 public static class InfrastructureServiceCollection
 {
