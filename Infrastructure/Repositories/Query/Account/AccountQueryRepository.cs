@@ -15,4 +15,12 @@ public class AccountQueryRepository : GenericRepository<Account>, IAccountQueryR
         var result = await FindAsync();
         return result.ToList();
     }
+
+    public async Task<Account> FindById(int accountId)
+    {
+        Param = new { AccountId = accountId };
+        QueryString = $@"SELECT * FROM {TABLE} WHERE accountId = @AccountId";
+        var result = await FindFirstOrDefaultAsync();
+        return result;
+    }
 }
