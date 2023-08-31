@@ -1,8 +1,7 @@
-﻿using Domain.Entities;
-
-namespace Domain.Repositories.Command;
+﻿namespace Domain.Repositories.Command;
 
 public interface IAccountCommandRepository
 {
     Task<int> Add(Account entity);
+    Task<int> Delete(Account entity);
 }

@@ -1,6 +1,4 @@
-﻿using Infrastructure.Repositories.Query;
-
-namespace Application.QueryHandlers;
+﻿namespace Application.QueryHandlers;
 
 public class GetAccountsByUserQueryHandler : IRequestHandler<GetAccountsQuery, List<AccountResponse>>
 {

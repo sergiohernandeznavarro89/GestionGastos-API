@@ -1,7 +1,4 @@
-﻿using Domain.Repositories.Command;
-using static Domain.Configuration.Sql;
-
-namespace Application.CommandHandlers;
+﻿namespace Application.CommandHandlers;
 
 public class AddAccountHandler : IRequestHandler<AddAccountCommand, AddAccountResponse>
 {
@@ -24,14 +21,14 @@ public class AddAccountHandler : IRequestHandler<AddAccountCommand, AddAccountRe
         {
             var _accountCommandRepository = unitOfWork.GetRepository<IAccountCommandRepository>();
 
-            int result = await _accountCommandRepository.Add(_mapper.Map<Account>(request));
+            int result = await _accountCommandRepository.Add(_mapper.Map<Domain.Entities.Account>(request));
 
             unitOfWork.SaveChanges();            
             response.AccountId = result;
             response.Success = true;
             response.Message = "Account created succesfully";
         }
-        catch(Exception ex)
+        catch(Exception)
         {
             unitOfWork.UndoChanges();
             response.Success = false;

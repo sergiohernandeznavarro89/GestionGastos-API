@@ -6,3 +6,4 @@ global using Application.Queries;
 global using Domain.Repositories.Query;
 global using Infrastructure.Repositories.Query;
 global using static Domain.Configuration.Sql;
+global using Domain.Repositories.Command;
