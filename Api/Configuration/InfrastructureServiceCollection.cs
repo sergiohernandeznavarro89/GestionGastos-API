@@ -8,6 +8,7 @@ public static class InfrastructureServiceCollection
         services.AddScoped<IUserQueryRepository, UserQueryRepository>();
         services.AddScoped<IAccountQueryRepository, AccountQueryRepository>();
         services.AddScoped<IAccountCommandRepository, AccountCommandRepository>();
+        services.AddScoped<IItemCommandRepository, ItemCommandRepository>();
 
         //HTTP CLIENT FACTORY
         services.AddHttpClient();
