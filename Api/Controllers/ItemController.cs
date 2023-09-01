@@ -28,5 +28,22 @@ public class ItemController : ControllerBase
         {
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
-    }    
+    }
+
+    [HttpGet]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<PendingPayItemResponse>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPendingPayItems([FromQuery] int userId)
+    {
+        try
+        {
+            var response = await _mediator.Send(new GetPendingPayItemQuery(userId));
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
 }
