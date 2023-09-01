@@ -22,6 +22,17 @@ public class AccountCommandRepository : GenericRepository<Account>, IAccountComm
         var result = await ExecuteScalarAsync(entity);
         return result;
     }
+    
+    public async Task<int> Update(Account entity)
+    {
+        QueryString = $@"UPDATE Account SET
+                            AccountName = @AccountName,
+                            Ammount = @Ammount
+                        WHERE AccountId = @AccountId";
+
+        var result = await ExecuteAsync(entity);
+        return result;
+    }
 
     public async Task<int> Delete(Account entity)
     {

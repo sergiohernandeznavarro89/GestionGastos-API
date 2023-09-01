@@ -6,8 +6,16 @@ public static class InfrastructureServiceCollection
     {
         //REPOSITORIES
         services.AddScoped<IUserQueryRepository, UserQueryRepository>();
+
         services.AddScoped<IAccountQueryRepository, AccountQueryRepository>();
         services.AddScoped<IAccountCommandRepository, AccountCommandRepository>();
+
+        services.AddScoped<IItemCommandRepository, ItemCommandRepository>();
+        services.AddScoped<IItemSummaryQueryRepository, ItemSummaryQueryRepository>();
+        services.AddScoped<IItemQueryRepository, ItemQueryRepository>();        
+
+        services.AddScoped<IItemPaymentQueryRepository, ItemPaymentQueryRepository>();
+        services.AddScoped<IItemPaymentCommandRepository, ItemPaymentCommandRepository>();
 
         //HTTP CLIENT FACTORY
         services.AddHttpClient();
