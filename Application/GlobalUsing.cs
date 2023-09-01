@@ -8,3 +8,4 @@ global using Infrastructure.Dto;
 global using Application.Commands;
 global using Domain.Repositories.Command;
 global using static Domain.Configuration.Sql;
+global using Domain.Enums;
