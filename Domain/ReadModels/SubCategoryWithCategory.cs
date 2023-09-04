@@ -1,0 +1,9 @@
+﻿namespace Domain.Entities;
+
+public class SubCategoryWithCategory
+{
+    public int SubCategoryId { get; set; }
+    public string SubCategoryDesc { get; set; }
+    public int CategoryId { get; set; }    
+    public string CategoryDesc { get; set; }    
+}
