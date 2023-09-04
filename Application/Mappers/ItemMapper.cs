@@ -6,5 +6,6 @@ public class ItemMapper : Profile
     {        
         CreateMap<AddItemCommand, Item>();
         CreateMap<ItemSummary, PendingPayItemResponse>();
+        CreateMap<ItemSummary, NextMonthPendingPayItemResponse>();
     }
 }

@@ -1,4 +1,6 @@
 using Api.Configuration;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,16 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyOrigin() // Permite cualquier origen
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
@@ -37,3 +48,21 @@ app.UseCors(x => x
 app.MapControllers();
 
 app.Run();
+
+public class AddCORSInfoOperationFilter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
+
+        // Configura CORS para Swagger
+        operation.Responses.Add("200", new OpenApiResponse { Description = "OK" });
+        operation.Responses["200"].Content.Add("application/json", new OpenApiMediaType
+        {
+            Schema = new OpenApiSchema
+            {
+                Type = "string"
+            }
+        });
+    }
+}
