@@ -17,6 +17,12 @@ public static class InfrastructureServiceCollection
         services.AddScoped<IItemPaymentQueryRepository, ItemPaymentQueryRepository>();
         services.AddScoped<IItemPaymentCommandRepository, ItemPaymentCommandRepository>();
 
+        services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
+        services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
+        
+        services.AddScoped<ISubCategoryQueryRepository, SubCategoryQueryRepository>();
+        services.AddScoped<ISubCategoryCommandRepository, SubCategoryCommandRepository>();
+
         //HTTP CLIENT FACTORY
         services.AddHttpClient();
         services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
