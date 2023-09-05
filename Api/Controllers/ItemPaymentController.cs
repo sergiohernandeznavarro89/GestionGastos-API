@@ -17,11 +17,11 @@ public class ItemPaymentController : ControllerBase
     [Route("[action]")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddItemPaymentResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> AddItemPayment([FromQuery] int itemId)
+    public async Task<IActionResult> AddItemPayment([FromQuery] int itemId, decimal ammount)
     {
         try
         {
-            var result = await _mediator.Send(new AddItemPaymentCommand(itemId));
+            var result = await _mediator.Send(new AddItemPaymentCommand(itemId, ammount));
             return Ok(result);
         }
         catch (Exception ex)

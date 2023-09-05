@@ -1,4 +1,6 @@
-﻿namespace Application.CommandHandlers;
+﻿using Domain.Entities;
+
+namespace Application.CommandHandlers;
 
 public class AddItemPaymentHandler : IRequestHandler<AddItemPaymentCommand, AddItemPaymentResponse>
 {
@@ -29,9 +31,10 @@ public class AddItemPaymentHandler : IRequestHandler<AddItemPaymentCommand, AddI
             var item = await _itemQueryRepository.FindById(request.ItemId);
 
             var currentDate = DateTime.Now;
-            var paymentDate = new DateTime(currentDate.Year, currentDate.Month, item.StartDate.Day);
+            int lastDayOfMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+            var paymentDate = new DateTime(currentDate.Year, currentDate.Month, item.StartDate.Day > lastDayOfMonth ? lastDayOfMonth : item.StartDate.Day);
 
-            var newItemPayment = new ItemPayment { ItemId = request.ItemId, PaymentDate = paymentDate };
+            var newItemPayment = new ItemPayment { ItemId = request.ItemId, PaymentDate = paymentDate, Ammount = request.Ammount};
 
             int result = await _itemPaymentCommandRepository.Add(newItemPayment);
 
@@ -41,7 +44,7 @@ public class AddItemPaymentHandler : IRequestHandler<AddItemPaymentCommand, AddI
                 var account = await _accountQueryRepository.FindById(item.AccountId);
                 if (account is not null)
                 {
-                    account.Ammount = account.Ammount - item.Ammount;
+                    account.Ammount = account.Ammount - request.Ammount;
                     await _accountCommandRepository.Update(account);
                 }
             }
@@ -50,7 +53,7 @@ public class AddItemPaymentHandler : IRequestHandler<AddItemPaymentCommand, AddI
                 var account = await _accountQueryRepository.FindById(item.AccountId);
                 if (account is not null)
                 {
-                    account.Ammount = account.Ammount + item.Ammount;
+                    account.Ammount = account.Ammount + request.Ammount;
                     await _accountCommandRepository.Update(account);
                 }
             }

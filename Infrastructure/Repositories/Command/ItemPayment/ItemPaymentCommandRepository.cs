@@ -10,11 +10,13 @@ public class ItemPaymentCommandRepository : GenericRepository<ItemPayment>, IIte
     {
         QueryString = $@"INSERT INTO ItemPayment
                             (ItemId,
-                            PaymentDate)
+                            PaymentDate,
+                            Ammount)
                         OUTPUT INSERTED.ItemPaymentId
                         VALUES
                             (@ItemId,
-                            @PaymentDate)";
+                            @PaymentDate,
+                            @Ammount)";
 
         var result = await ExecuteScalarAsync(entity);
         return result;
