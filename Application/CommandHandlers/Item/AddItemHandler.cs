@@ -30,7 +30,7 @@ public class AddItemHandler : IRequestHandler<AddItemCommand, AddItemResponse>
             {
                 var account = await _accountQueryRepository.FindById(request.AccountId);
                 if (account is not null)
-                {
+                {                    
                     account.Ammount = account.Ammount - request.Ammount;
                     await _accountCommandRepository.Update(account);
                 }
