@@ -1,6 +1,6 @@
 ﻿namespace Application.Commands;
 
-public class AddItemCommand : IRequest<AddItemResponse>
+public class UpdateItemCommand : IRequest<UpdateItemResponse>
 {
     public int ItemId { get; set; }
     public string ItemName { get; set; }
@@ -14,7 +14,5 @@ public class AddItemCommand : IRequest<AddItemResponse>
     public int? SubCategoryId { get; set; }
     public int ItemTypeId { get; set; }
     public int AmmountTypeId { get; set; }
-    public int PeriodTypeId { get; set; }
-    public int UserId { get; set; }
     public int AccountId { get; set; }
 }
