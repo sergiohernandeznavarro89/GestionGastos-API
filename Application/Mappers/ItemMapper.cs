@@ -8,5 +8,6 @@ public class ItemMapper : Profile
         CreateMap<ItemSummary, PendingPayItemResponse>();
         CreateMap<ItemSummary, ItemResponse>();
         CreateMap<ItemSummary, NextMonthPendingPayItemResponse>();
+        CreateMap<UpdateItemCommand, Item>();
     }
 }

@@ -46,21 +46,38 @@ public class SubCategoryController : ControllerBase
         }
     }
 
-    //[HttpDelete]
-    //[Route("[action]")]
-    //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeleteAccountResponse))]
-    //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //public async Task<IActionResult> DeleteCategory([FromQuery] int accountId)
-    //{
-    //    try
-    //    {
-    //        var result = await _mediator.Send(new DeleteAccountCommand(accountId));
-    //        return Ok(result);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        var result = new DeleteAccountResponse { Success = false, Message = ex.Message };
-    //        return StatusCode(StatusCodes.Status500InternalServerError, result);
-    //    }
-    //}
+    [HttpPut]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateSubCategoryResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateSubCategory([FromBody] UpdateSubCategoryCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpDelete]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeleteSubCategoryResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteSubCategory([FromQuery] int subCategoryId)
+    {
+        try
+        {
+            var result = await _mediator.Send(new DeleteSubCategoryCommand(subCategoryId));
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            var result = new DeleteAccountResponse { Success = false, Message = ex.Message };
+            return StatusCode(StatusCodes.Status500InternalServerError, result);
+        }
+    }
 }

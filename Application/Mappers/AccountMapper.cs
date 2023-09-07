@@ -6,5 +6,6 @@ public class AccountMapper : Profile
     {
         CreateMap<Account, AccountResponse>();
         CreateMap<AddAccountCommand, Account>();
+        CreateMap<UpdateAccountCommand, Account>();
     }
 }

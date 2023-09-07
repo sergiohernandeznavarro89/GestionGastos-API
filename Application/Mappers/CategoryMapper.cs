@@ -6,5 +6,6 @@ public class CategoryMapper : Profile
     {
         CreateMap<Category, CategoryResponse>();
         CreateMap<AddCategoryCommand, Category>();
+        CreateMap<UpdateCategoryCommand, Category>();
     }
 }

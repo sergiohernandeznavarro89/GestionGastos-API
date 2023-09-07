@@ -4,8 +4,9 @@ public class SubCategoryMapper : Profile
 {
     public SubCategoryMapper() 
     {
-        //CreateMap<SubCategory, SubCategoryResponse>();
         CreateMap<SubCategoryWithCategory, SubCategoryResponse>();
         CreateMap<AddSubCategoryCommand, SubCategory>();
+        CreateMap<UpdateSubCategoryCommand, SubCategory>();
+        CreateMap<SubCategoryWithCategory, SubCategory>();
     }
 }

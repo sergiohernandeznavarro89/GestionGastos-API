@@ -43,4 +43,26 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
         var result = await ExecuteScalarAsync(entity);
         return result;
     }
+    public async Task<int> Update(Item entity)
+    {
+        QueryString = $@"UPDATE Item SET
+                            ItemName = @ItemName,
+                            ItemDesc = @ItemDesc,
+                            Ammount = @Ammount,
+                            Periodity = @Periodity,
+                            StartDate = @StartDate,
+                            EndDate = @EndDate,
+                            Cancelled = @Cancelled,
+                            CategoryId = @CategoryId,
+                            SubCategoryId = @SubCategoryId,
+                            ItemTypeId = @ItemTypeId,
+                            AmmountTypeId = @AmmountTypeId,
+                            PeriodTypeId = @PeriodTypeId,
+                            UserId = @UserId,
+                            AccountId = @AccountId
+                        WHERE ItemId = @ItemId";
+
+        var result = await ExecuteAsync(entity);
+        return result;
+    }
 }
