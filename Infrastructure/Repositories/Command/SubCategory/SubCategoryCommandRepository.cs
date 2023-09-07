@@ -20,23 +20,23 @@ public class SubCategoryCommandRepository : GenericRepository<SubCategory>, ISub
         var result = await ExecuteScalarAsync(entity);
         return result;
     }
-    
-    //public async Task<int> Update(Account entity)
-    //{
-    //    QueryString = $@"UPDATE Account SET
-    //                        AccountName = @AccountName,
-    //                        Ammount = @Ammount
-    //                    WHERE AccountId = @AccountId";
 
-    //    var result = await ExecuteAsync(entity);
-    //    return result;
-    //}
+    public async Task<int> Update(SubCategory entity)
+    {
+        QueryString = $@"UPDATE SubCategory SET
+                            SubCategoryDesc = @SubCategoryDesc,
+                            CategoryId = @CategoryId
+                        WHERE SubCategoryId = @SubCategoryId";
 
-    //public async Task<int> Delete(Account entity)
-    //{
-    //    Param = new { entity.AccountId };
-    //    QueryString = $@"DELETE FROM Account WHERE AccountId = @AccountId";
-    //    var result = await ExecuteAsync();
-    //    return result;
-    //}
+        var result = await ExecuteAsync(entity);
+        return result;
+    }
+
+    public async Task<int> Delete(SubCategory entity)
+    {
+        Param = new { entity.SubCategoryId };
+        QueryString = $@"DELETE FROM SubCategory WHERE SubCategoryId = @SubCategoryId";
+        var result = await ExecuteAsync();
+        return result;
+    }
 }

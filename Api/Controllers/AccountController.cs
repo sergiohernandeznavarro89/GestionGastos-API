@@ -45,6 +45,23 @@ public class AccountController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
+    
+    [HttpPut]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateAccountResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
 
     [HttpDelete]
     [Route("[action]")]

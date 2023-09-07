@@ -13,22 +13,6 @@ public class ItemController : ControllerBase
         _mediator = mediator;
     }    
 
-    [HttpPost]
-    [Route("[action]")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddItemResponse))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> AddItem([FromBody] AddItemCommand command)
-    {
-        try
-        {
-            var result = await _mediator.Send(command);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        }
-    }
 
     [HttpGet]
     [Route("[action]")]
@@ -74,6 +58,40 @@ public class ItemController : ControllerBase
         {
             var response = await _mediator.Send(new GetItemQuery(userId));
             return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpPost]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddItemResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> AddItem([FromBody] AddItemCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpPut]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateItemResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateItem([FromBody] UpdateItemCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
         catch (Exception ex)
         {
