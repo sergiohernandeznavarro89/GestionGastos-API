@@ -23,6 +23,9 @@ public static class InfrastructureServiceCollection
         services.AddScoped<ISubCategoryQueryRepository, SubCategoryQueryRepository>();
         services.AddScoped<ISubCategoryCommandRepository, SubCategoryCommandRepository>();
 
+        services.AddScoped<IDebtCommandRepository, DebtCommandRepository>();
+        services.AddScoped<IDebtSummaryQueryRepository, DebtSummaryQueryRepository>();
+
         //HTTP CLIENT FACTORY
         services.AddHttpClient();
         services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
