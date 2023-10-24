@@ -33,26 +33,21 @@ public class DebtCommandRepository : GenericRepository<Debt>, IDebtCommandReposi
         var result = await ExecuteScalarAsync(entity);
         return result;
     }
-    //public async Task<int> Update(Item entity)
-    //{
-    //    QueryString = $@"UPDATE Item SET
-    //                        ItemName = @ItemName,
-    //                        ItemDesc = @ItemDesc,
-    //                        Ammount = @Ammount,
-    //                        Periodity = @Periodity,
-    //                        StartDate = @StartDate,
-    //                        EndDate = @EndDate,
-    //                        Cancelled = @Cancelled,
-    //                        CategoryId = @CategoryId,
-    //                        SubCategoryId = @SubCategoryId,
-    //                        ItemTypeId = @ItemTypeId,
-    //                        AmmountTypeId = @AmmountTypeId,
-    //                        PeriodTypeId = @PeriodTypeId,
-    //                        UserId = @UserId,
-    //                        AccountId = @AccountId
-    //                    WHERE ItemId = @ItemId";
+    public async Task<int> Update(Debt entity)
+    {
+        QueryString = $@"UPDATE Item SET
+                            DebtName = @DebtName, 
+                            StartAmount = @StartAmount,
+                            Date = @Date,  
+                            CategoryId = @CategoryId,  
+                            SubCategoryId = @SubCategoryId,  
+                            DebtTypeId = @DebtTypeId,  
+                            UserId = @UserId,  
+                            DebtorName = @DebtorName,  
+                            CurrentAmou = @CurrentAmountt
+                        WHERE ItemId = @ItemId";
 
-    //    var result = await ExecuteAsync(entity);
-    //    return result;
-    //}
+        var result = await ExecuteAsync(entity);
+        return result;
+    }
 }
