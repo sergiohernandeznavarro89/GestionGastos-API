@@ -25,6 +25,7 @@ public static class InfrastructureServiceCollection
 
         services.AddScoped<IDebtCommandRepository, DebtCommandRepository>();
         services.AddScoped<IDebtSummaryQueryRepository, DebtSummaryQueryRepository>();
+        services.AddScoped<IDebtQueryRepository, DebtQueryRepository>();
 
         //HTTP CLIENT FACTORY
         services.AddHttpClient();

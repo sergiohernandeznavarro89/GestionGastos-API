@@ -6,5 +6,6 @@ public class DebtMapper : Profile
     {
         CreateMap<AddDebtCommand, Debt>();
         CreateMap<DebtSummary, DebtResponse>();
+        CreateMap<UpdateDebtCommand, Debt>();
     }
 }
