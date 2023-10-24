@@ -37,7 +37,7 @@ public class UpdateDebtHandler : IRequestHandler<UpdateDebtCommand, UpdateDebtRe
                 unitOfWork.SaveChanges();
                 response.DebtId = result;
                 response.Success = true;
-                response.Message = "Debt created succesfully";
+                response.Message = "Debt updated succesfully";
             }
             else
             {
@@ -49,7 +49,7 @@ public class UpdateDebtHandler : IRequestHandler<UpdateDebtCommand, UpdateDebtRe
         {
             unitOfWork.UndoChanges();
             response.Success = false;
-            response.Message = "Error to create Debt";
+            response.Message = "Error to update Debt";
         }
         return response;
     }
