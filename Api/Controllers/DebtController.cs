@@ -69,7 +69,7 @@ public class DebtController : ControllerBase
     [Route("[action]")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UpdateDebtResponse))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateItem([FromBody] UpdateDebtCommand command)
+    public async Task<IActionResult> UpdateDebt([FromBody] UpdateDebtCommand command)
     {
         try
         {
