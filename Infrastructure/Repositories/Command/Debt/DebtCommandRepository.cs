@@ -35,7 +35,7 @@ public class DebtCommandRepository : GenericRepository<Debt>, IDebtCommandReposi
     }
     public async Task<int> Update(Debt entity)
     {
-        QueryString = $@"UPDATE Item SET
+        QueryString = $@"UPDATE Debt SET
                             DebtName = @DebtName, 
                             StartAmount = @StartAmount,
                             Date = @Date,  
@@ -44,8 +44,8 @@ public class DebtCommandRepository : GenericRepository<Debt>, IDebtCommandReposi
                             DebtTypeId = @DebtTypeId,  
                             UserId = @UserId,  
                             DebtorName = @DebtorName,  
-                            CurrentAmou = @CurrentAmountt
-                        WHERE ItemId = @ItemId";
+                            CurrentAmount = @CurrentAmount
+                        WHERE DebtId = @DebtId";
 
         var result = await ExecuteAsync(entity);
         return result;
