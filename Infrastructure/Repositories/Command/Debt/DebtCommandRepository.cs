@@ -45,6 +45,7 @@ public class DebtCommandRepository : GenericRepository<Debt>, IDebtCommandReposi
                             UserId = @UserId,  
                             DebtorName = @DebtorName,  
                             CurrentAmount = @CurrentAmount
+                            CompletedDate = @CompletedDate
                         WHERE DebtId = @DebtId";
 
         var result = await ExecuteAsync(entity);
