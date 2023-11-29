@@ -44,7 +44,7 @@ public class DebtCommandRepository : GenericRepository<Debt>, IDebtCommandReposi
                             DebtTypeId = @DebtTypeId,  
                             UserId = @UserId,  
                             DebtorName = @DebtorName,  
-                            CurrentAmount = @CurrentAmount
+                            CurrentAmount = @CurrentAmount,
                             CompletedDate = @CompletedDate
                         WHERE DebtId = @DebtId";
 
