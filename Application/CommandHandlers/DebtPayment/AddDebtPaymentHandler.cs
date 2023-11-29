@@ -60,7 +60,7 @@ public class AddDebtPaymentHandler : IRequestHandler<AddDebtPaymentCommand, AddD
             int result = await _debtPaymentCommandRepository.Add(newDebtPayment);
 
             if(debt.CurrentAmount - request.Amount == 0)
-            {
+            {                
                 debt.CompletedDate = DateTime.Now;
             }
 
