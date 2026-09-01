@@ -1,4 +1,4 @@
-﻿using Application.Commands;
+using Application.Commands;
 
 namespace Api.Controllers;
 
@@ -90,6 +90,24 @@ public class ItemController : ControllerBase
     {
         try
         {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpDelete]
+    [Route("[action]/{itemId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeleteItemResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteItem(int itemId)
+    {
+        try
+        {
+            var command = new DeleteItemCommand { ItemId = itemId };
             var result = await _mediator.Send(command);
             return Ok(result);
         }

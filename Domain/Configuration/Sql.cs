@@ -1,4 +1,4 @@
-﻿#region Assembly Copernicus.NetCore.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+#region Assembly Copernicus.NetCore.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 // C:\Users\sergio.hernandez\.nuget\packages\copernicus.netcore.common\1.0.0\lib\net6.0\Copernicus.NetCore.Common.dll
 // Decompiled with ICSharpCode.Decompiler 7.1.0.6543
 #endregion
@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 

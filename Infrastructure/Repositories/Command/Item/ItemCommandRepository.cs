@@ -1,4 +1,4 @@
-﻿namespace Domain.Repositories.Command;
+namespace Domain.Repositories.Command;
 
 public class ItemCommandRepository : GenericRepository<Item>, IItemCommandRepository
 {
@@ -63,6 +63,17 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
                         WHERE ItemId = @ItemId";
 
         var result = await ExecuteAsync(entity);
+        return result;
+    }
+
+    public async Task<int> Delete(int itemId)
+    {
+        QueryString = $@"DELETE FROM Item WHERE ItemId = @ItemId";
+        var param = new { ItemId = itemId };
+        
+        // Asumiendo que ExecuteAsync soporta parámetros anónimos. Si no, habría que instanciar Item o pasarlo de otra forma, pero Dapper soporta anónimos.
+        Param = param;
+        var result = await ExecuteAsync();
         return result;
     }
 }
