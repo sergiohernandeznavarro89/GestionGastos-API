@@ -1,4 +1,9 @@
-﻿namespace Api.Configuration;
+using Domain.Repositories.Command;
+using Infrastructure.Repositories.Command;
+using Domain.Repositories.Query;
+using Infrastructure.Repositories.Query;
+
+namespace Api.Configuration;
 
 public static class InfrastructureServiceCollection
 {
@@ -9,6 +14,12 @@ public static class InfrastructureServiceCollection
 
         services.AddScoped<IAccountQueryRepository, AccountQueryRepository>();
         services.AddScoped<IAccountCommandRepository, AccountCommandRepository>();
+
+        services.AddScoped<ITransferCommandRepository, TransferCommandRepository>();
+        services.AddScoped<ITransferPaymentCommandRepository, TransferPaymentCommandRepository>();
+        services.AddScoped<ITransferQueryRepository, TransferQueryRepository>();
+        services.AddScoped<ITransferSummaryQueryRepository, TransferSummaryQueryRepository>();
+        services.AddScoped<ITransferPaymentQueryRepository, TransferPaymentQueryRepository>();
 
         services.AddScoped<IItemCommandRepository, ItemCommandRepository>();
         services.AddScoped<IItemSummaryQueryRepository, ItemSummaryQueryRepository>();

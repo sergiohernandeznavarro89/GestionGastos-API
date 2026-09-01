@@ -30,25 +30,32 @@ public class DeleteItemHandler : IRequestHandler<DeleteItemCommand, DeleteItemRe
             var accountCommandRepository = unitOfWork.GetRepository<IAccountCommandRepository>();
             
             var item = await _itemQueryRepository.FindById(request.ItemId);
-            
-            if (item != null && item.PeriodTypeId == (int)PeriodTypeEnum.Exporadico)
+            int result = 0;
+            if (item != null)
             {
-                var account = await _accountQueryRepository.FindById(item.AccountId);
-                if (account != null)
+                if (item.PeriodTypeId == (int)PeriodTypeEnum.Exporadico)
                 {
-                    if (item.ItemTypeId == (int)ItemTypeEnum.Gasto)
+                    var account = await _accountQueryRepository.FindById(item.AccountId);
+                    if (account != null)
                     {
-                        account.Ammount += item.Ammount;
+                        if (item.ItemTypeId == (int)ItemTypeEnum.Gasto)
+                        {
+                            account.Ammount += item.Ammount;
+                        }
+                        else if (item.ItemTypeId == (int)ItemTypeEnum.Ingreso)
+                        {
+                            account.Ammount -= item.Ammount;
+                        }
+                        await accountCommandRepository.Update(account);
                     }
-                    else if (item.ItemTypeId == (int)ItemTypeEnum.Ingreso)
-                    {
-                        account.Ammount -= item.Ammount;
-                    }
-                    await accountCommandRepository.Update(account);
+                    result = await itemCommandRepository.Delete(request.ItemId);
+                }
+                else
+                {
+                    item.Cancelled = true;
+                    result = await itemCommandRepository.Update(item);
                 }
             }
-            
-            int result = await itemCommandRepository.Delete(request.ItemId);
 
             if (result > 0)
             {
