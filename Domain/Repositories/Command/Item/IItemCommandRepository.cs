@@ -1,7 +1,8 @@
-﻿namespace Domain.Repositories.Command;
+namespace Domain.Repositories.Command;
 
 public interface IItemCommandRepository
 {
     Task<int> Add(Item entity);
     Task<int> Update(Item entity);
+    Task<int> Delete(int itemId);
 }
