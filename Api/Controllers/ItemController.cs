@@ -4,6 +4,7 @@ namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ItemController : ControllerBase
 {
     private readonly IMediator _mediator;

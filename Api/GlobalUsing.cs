@@ -1,4 +1,4 @@
-﻿global using System.Reflection;
+global using System.Reflection;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Application.Dto;
@@ -7,3 +7,4 @@ global using Domain.Repositories.Query;
 global using Infrastructure.Repositories.Query;
 global using static Domain.Configuration.Sql;
 global using Domain.Repositories.Command;
+global using Microsoft.AspNetCore.Authorization;
