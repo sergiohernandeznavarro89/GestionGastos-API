@@ -1,5 +1,6 @@
 using Domain.Repositories.Command;
 using Infrastructure.Repositories.Command;
+using Infrastructure.Repositories.Command.User;
 using Domain.Repositories.Query;
 using Infrastructure.Repositories.Query;
 
@@ -14,6 +15,7 @@ public static class InfrastructureServiceCollection
 
         services.AddScoped<IAccountQueryRepository, AccountQueryRepository>();
         services.AddScoped<IAccountCommandRepository, AccountCommandRepository>();
+        services.AddScoped<IUserCommandRepository, UserCommandRepository>();
 
         services.AddScoped<ITransferCommandRepository, TransferCommandRepository>();
         services.AddScoped<ITransferPaymentCommandRepository, TransferPaymentCommandRepository>();

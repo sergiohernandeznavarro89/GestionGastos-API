@@ -1,9 +1,10 @@
-﻿using Application.Commands;
+using Application.Commands;
 
 namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class DebtController : ControllerBase
 {
     private readonly IMediator _mediator;
