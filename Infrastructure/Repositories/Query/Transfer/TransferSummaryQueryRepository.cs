@@ -28,7 +28,7 @@ public class TransferSummaryQueryRepository : GenericRepository<TransferSummary>
                         LEFT JOIN Category c on t.CategoryId = c.CategoryId
                         LEFT JOIN SubCategory sc on t.SubCategoryId = sc.SubCategoryId
                         LEFT JOIN PeriodType pt on t.PeriodTypeId = pt.PeriodTypeId
-                        WHERE t.UserId = @UserId AND t.Cancelled = 0";
+                        WHERE t.UserId = @UserId AND t.Cancelled = false";
 
         var result = await FindAsync();
         return result.ToList();
@@ -39,9 +39,9 @@ public class TransferSummaryQueryRepository : GenericRepository<TransferSummary>
         System.DateTime targetDate = System.DateTime.Now.AddMonths(-monthsOffset);
         Param = new { UserId = userId, TargetMonth = targetDate.Month, TargetYear = targetDate.Year };
         QueryString = $@"SELECT t.TransferId, t.TransferName, t.TransferDesc, 
-                               ISNULL(tp.Ammount, t.Ammount) AS Ammount, 
+                               COALESCE(tp.Ammount, t.Ammount) AS Ammount, 
                                t.Periodity, 
-                               ISNULL(tp.PaymentDate, t.StartDate) AS StartDate, 
+                               COALESCE(tp.PaymentDate, t.StartDate) AS StartDate, 
                                t.EndDate, t.Cancelled, t.CategoryId, t.SubCategoryId, t.PeriodTypeId, t.UserId,
                                t.OriginAccountId, t.DestinationAccountId,
                                ao.AccountName as OriginAccountName, 
@@ -55,10 +55,10 @@ public class TransferSummaryQueryRepository : GenericRepository<TransferSummary>
                         LEFT JOIN Category c on t.CategoryId = c.CategoryId
                         LEFT JOIN SubCategory sc on t.SubCategoryId = sc.SubCategoryId
                         LEFT JOIN PeriodType pt on t.PeriodTypeId = pt.PeriodTypeId
-                        LEFT JOIN TransferPayment tp ON t.TransferId = tp.TransferId AND MONTH(tp.PaymentDate) = @TargetMonth AND YEAR(tp.PaymentDate) = @TargetYear
-                        WHERE t.UserId = @UserId AND t.Cancelled = 0
+                        LEFT JOIN TransferPayment tp ON t.TransferId = tp.TransferId AND EXTRACT(MONTH FROM tp.PaymentDate) = @TargetMonth AND EXTRACT(YEAR FROM tp.PaymentDate) = @TargetYear
+                        WHERE t.UserId = @UserId AND t.Cancelled = false
                           AND (
-                              (t.PeriodTypeId = 1 AND MONTH(t.StartDate) = @TargetMonth AND YEAR(t.StartDate) = @TargetYear)
+                              (t.PeriodTypeId = 1 AND EXTRACT(MONTH FROM t.StartDate) = @TargetMonth AND EXTRACT(YEAR FROM t.StartDate) = @TargetYear)
                               OR 
                               (t.PeriodTypeId = 2 AND tp.TransferPaymentId IS NOT NULL)
                           )";

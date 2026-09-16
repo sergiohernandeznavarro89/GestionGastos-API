@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 
 namespace Domain.Repositories.Command;
 
@@ -14,11 +14,11 @@ public class AccountCommandRepository : GenericRepository<Account>, IAccountComm
                             (AccountName,
                             UserId,
                             Ammount)
-                        OUTPUT INSERTED.AccountId
+                        
                         VALUES
                             (@AccountName,
                             @UserId,
-                            @Ammount)";
+                            @Ammount) RETURNING AccountId";
         var result = await ExecuteScalarAsync(entity);
         return result;
     }

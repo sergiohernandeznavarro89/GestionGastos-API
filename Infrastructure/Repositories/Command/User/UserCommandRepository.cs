@@ -17,12 +17,12 @@ public class UserCommandRepository : GenericRepository<Domain.Entities.User>, IU
                              UserLastName,
                              UserPass,
                              UserEmail)
-                        OUTPUT INSERTED.UserId
+                        
                         VALUES
                             (@UserName,
                              @UserLastName,
                              @UserPass,
-                             @UserEmail)";
+                             @UserEmail) RETURNING UserId";
         var result = await ExecuteScalarAsync(entity);
         return result;
     }

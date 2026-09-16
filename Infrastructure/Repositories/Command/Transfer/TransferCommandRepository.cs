@@ -27,7 +27,7 @@ public class TransferCommandRepository : GenericRepository<Transfer>, ITransferC
                              UserId,
                              OriginAccountId,
                              DestinationAccountId)
-                        OUTPUT INSERTED.TransferId
+                        
                         VALUES
                             (@TransferName,
                              @TransferDesc,
@@ -41,7 +41,7 @@ public class TransferCommandRepository : GenericRepository<Transfer>, ITransferC
                              @PeriodTypeId,
                              @UserId,
                              @OriginAccountId,
-                             @DestinationAccountId)";
+                             @DestinationAccountId) RETURNING TransferId";
 
         var result = await ExecuteScalarAsync(entity);
         return result;

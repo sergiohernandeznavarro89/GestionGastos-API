@@ -1,4 +1,4 @@
-﻿namespace Domain.Repositories.Command;
+namespace Domain.Repositories.Command;
 
 public class DebtPaymentCommandRepository : GenericRepository<DebtPayment>, IDebtPaymentCommandRepository
 {
@@ -13,12 +13,12 @@ public class DebtPaymentCommandRepository : GenericRepository<DebtPayment>, IDeb
                             Date,
                             Amount,
                             AccountId)
-                        OUTPUT INSERTED.DebtPaymentId
+                        
                         VALUES
                             (@DebtId,
                             @Date,
                             @Amount,
-                            @AccountId)";
+                            @AccountId) RETURNING DebtPaymentId";
 
         var result = await ExecuteScalarAsync(entity);
         return result;

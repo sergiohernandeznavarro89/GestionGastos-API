@@ -17,11 +17,11 @@ public class TransferPaymentCommandRepository : GenericRepository<TransferPaymen
                             (TransferId,
                              PaymentDate,
                              Ammount)
-                        OUTPUT INSERTED.TransferPaymentId
+                        
                         VALUES
                             (@TransferId,
                              @PaymentDate,
-                             @Ammount)";
+                             @Ammount) RETURNING TransferPaymentId";
 
         var result = await ExecuteScalarAsync(entity);
         return result;

@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 
 namespace Domain.Repositories.Command;
 
@@ -13,10 +13,10 @@ public class CategoryCommandRepository : GenericRepository<Category>, ICategoryC
         QueryString = $@"INSERT INTO Category
                             (CategoryDesc,
                             UserId)
-                        OUTPUT INSERTED.CategoryId
+                        
                         VALUES
                             (@CategoryDesc,
-                            @UserId)";
+                            @UserId) RETURNING CategoryId";
         var result = await ExecuteScalarAsync(entity);
         return result;
     }

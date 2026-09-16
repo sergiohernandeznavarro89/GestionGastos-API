@@ -23,7 +23,7 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
                             PeriodTypeId,
                             UserId,
                             AccountId)
-                        OUTPUT INSERTED.ItemId
+                        
                         VALUES
                             (@ItemName,
                             @ItemDesc,
@@ -38,7 +38,7 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
                             @AmmountTypeId,
                             @PeriodTypeId,
                             @UserId,
-                            @AccountId)";
+                            @AccountId) RETURNING ItemId";
 
         var result = await ExecuteScalarAsync(entity);
         return result;
