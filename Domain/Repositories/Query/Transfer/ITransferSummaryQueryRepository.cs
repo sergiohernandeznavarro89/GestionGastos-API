@@ -7,4 +7,5 @@ namespace Domain.Repositories.Query;
 public interface ITransferSummaryQueryRepository
 {
     Task<List<TransferSummary>> FindByUserId(int userId);
+    Task<List<TransferSummary>> FindExecutedByMonth(int userId, int monthsOffset);
 }

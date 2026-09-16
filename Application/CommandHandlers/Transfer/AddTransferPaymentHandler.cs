@@ -38,7 +38,14 @@ public class AddTransferPaymentHandler : IRequestHandler<AddTransferPaymentComma
 
             var currentDate = DateTime.Now;
             int lastDayOfMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-            var paymentDate = new DateTime(currentDate.Year, currentDate.Month, transfer.StartDate.Day > lastDayOfMonth ? lastDayOfMonth : transfer.StartDate.Day);
+            var paymentDate = new DateTime(
+                currentDate.Year, 
+                currentDate.Month, 
+                transfer.StartDate.Day > lastDayOfMonth ? lastDayOfMonth : transfer.StartDate.Day,
+                currentDate.Hour,
+                currentDate.Minute,
+                currentDate.Second
+            );
 
             var newTransferPayment = new TransferPayment 
             { 

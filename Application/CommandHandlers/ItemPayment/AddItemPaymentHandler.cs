@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 
 namespace Application.CommandHandlers;
 
@@ -32,7 +32,14 @@ public class AddItemPaymentHandler : IRequestHandler<AddItemPaymentCommand, AddI
 
             var currentDate = DateTime.Now;
             int lastDayOfMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-            var paymentDate = new DateTime(currentDate.Year, currentDate.Month, item.StartDate.Day > lastDayOfMonth ? lastDayOfMonth : item.StartDate.Day);
+            var paymentDate = new DateTime(
+                currentDate.Year, 
+                currentDate.Month, 
+                item.StartDate.Day > lastDayOfMonth ? lastDayOfMonth : item.StartDate.Day,
+                currentDate.Hour,
+                currentDate.Minute,
+                currentDate.Second
+            );
 
             var newItemPayment = new ItemPayment { ItemId = request.ItemId, PaymentDate = paymentDate, Ammount = request.Ammount};
 

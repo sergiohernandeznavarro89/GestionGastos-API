@@ -66,6 +66,23 @@ public class ItemController : ControllerBase
         }
     }
 
+    [HttpGet]
+    [Route("[action]")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ItemResponse>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetExecutedItems([FromQuery] int userId, [FromQuery] int monthsOffset = 0)
+    {
+        try
+        {
+            var response = await _mediator.Send(new GetExecutedItemQuery(userId, monthsOffset));
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
     [HttpPost]
     [Route("[action]")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddItemResponse))]

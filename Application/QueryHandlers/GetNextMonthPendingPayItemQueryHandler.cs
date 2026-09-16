@@ -1,4 +1,4 @@
-﻿namespace Application.QueryHandlers;
+namespace Application.QueryHandlers;
 
 public class GetNextMonthPendingPayItemQueryHandler : IRequestHandler<GetNextMonthPendingPayItemQuery, List<NextMonthPendingPayItemResponse>>
 {
@@ -38,8 +38,8 @@ public class GetNextMonthPendingPayItemQueryHandler : IRequestHandler<GetNextMon
         DateTime currentDate = DateTime.Now.Date;
         DateTime nextMonth = currentDate.AddMonths(1);
 
-        // Si la fecha actual está dentro del rango de fechas
-        if (nextMonth >= startDate && nextMonth <= endDate)
+        // Si el próximo mes está dentro del rango de fechas
+        if (nextMonth >= startDate.Date && nextMonth <= endDate.Date)
         {
             // Calcular la diferencia en meses entre la fecha actual y la fecha de inicio
             int monthsDifference = (nextMonth.Year - startDate.Year) * 12 + nextMonth.Month - startDate.Month;

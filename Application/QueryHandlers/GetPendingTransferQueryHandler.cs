@@ -47,7 +47,7 @@ public class GetPendingTransferQueryHandler : IRequestHandler<GetPendingTransfer
     {
         DateTime currentDate = DateTime.Now.Date;
 
-        if (currentDate >= startDate && currentDate <= endDate)
+        if (currentDate >= startDate.Date && currentDate <= endDate.Date)
         {
             int monthsDifference = (currentDate.Year - startDate.Year) * 12 + currentDate.Month - startDate.Month;
 

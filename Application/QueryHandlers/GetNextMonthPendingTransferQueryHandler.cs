@@ -47,7 +47,7 @@ public class GetNextMonthPendingTransferQueryHandler : IRequestHandler<GetNextMo
     {
         DateTime nextMonthDate = DateTime.Now.Date.AddMonths(1);
 
-        if (nextMonthDate >= startDate && nextMonthDate <= endDate)
+        if (nextMonthDate >= startDate.Date && nextMonthDate <= endDate.Date)
         {
             int monthsDifference = (nextMonthDate.Year - startDate.Year) * 12 + nextMonthDate.Month - startDate.Month;
 

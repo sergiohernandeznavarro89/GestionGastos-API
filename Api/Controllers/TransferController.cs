@@ -46,6 +46,14 @@ public class TransferController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("executed")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TransferResponse>))]
+    public async Task<IActionResult> GetExecutedTransfers([FromQuery] int userId, [FromQuery] int monthsOffset = 0)
+    {
+        var response = await _mediator.Send(new GetExecutedTransferQuery(userId, monthsOffset));
+        return Ok(response);
+    }
+
     [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AddTransferResponse))]
     public async Task<IActionResult> Add([FromBody] AddTransferCommand command)
