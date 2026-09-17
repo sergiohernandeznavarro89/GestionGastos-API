@@ -103,13 +103,20 @@ public class AddCORSInfoOperationFilter : IOperationFilter
         operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
 
         // Configura CORS para Swagger
-        operation.Responses.Add("200", new OpenApiResponse { Description = "OK" });
-        operation.Responses["200"].Content.Add("application/json", new OpenApiMediaType
+        if (!operation.Responses.ContainsKey("200"))
         {
-            Schema = new OpenApiSchema
+            operation.Responses.Add("200", new OpenApiResponse { Description = "OK" });
+        }
+        
+        if (!operation.Responses["200"].Content.ContainsKey("application/json"))
+        {
+            operation.Responses["200"].Content.Add("application/json", new OpenApiMediaType
             {
-                Type = "string"
-            }
-        });
+                Schema = new OpenApiSchema
+                {
+                    Type = "string"
+                }
+            });
+        }
     }
 }
