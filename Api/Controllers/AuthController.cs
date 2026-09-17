@@ -30,52 +30,45 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        try
+        var user = await _userQueryRepository.FindByEmail(request.Email);
+        if (user == null)
+            return Unauthorized("Usuario o contraseña incorrectos");
+
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.UserPass))
+            return Unauthorized("Usuario o contraseña incorrectos");
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+        
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            var user = await _userQueryRepository.FindByEmail(request.Email);
-            if (user == null)
-                return Unauthorized("Usuario o contraseña incorrectos");
-
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.UserPass))
-                return Unauthorized("Usuario o contraseña incorrectos");
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            
-            var tokenDescriptor = new SecurityTokenDescriptor
+            Subject = new ClaimsIdentity(new Claim[]
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                    new Claim(ClaimTypes.Email, user.UserEmail),
-                    new Claim(ClaimTypes.Name, user.UserName)
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Email, user.UserEmail),
+                new Claim(ClaimTypes.Name, user.UserName)
+            }),
+            Expires = DateTime.UtcNow.AddDays(7),
+            Issuer = _configuration["Jwt:Issuer"],
+            Audience = _configuration["Jwt:Audience"],
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        
+        var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var response = new AuthResponse
-            {
-                Token = tokenHandler.WriteToken(token),
-                User = new UserResponse
-                {
-                    UserId = user.UserId,
-                    UserName = user.UserName,
-                    UserLastName = user.UserLastName,
-                    UserEmail = user.UserEmail
-                }
-            };
-
-            return Ok(response);
-        }
-        catch (Exception ex)
+        var response = new AuthResponse
         {
-            return StatusCode(500, new { Error = ex.Message, StackTrace = ex.StackTrace, InnerError = ex.InnerException?.Message });
-        }
+            Token = tokenHandler.WriteToken(token),
+            User = new UserResponse
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                UserLastName = user.UserLastName,
+                UserEmail = user.UserEmail
+            }
+        };
+
+        return Ok(response);
     }
 
     [HttpPost("register")]
