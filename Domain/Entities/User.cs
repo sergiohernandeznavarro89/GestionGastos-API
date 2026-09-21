@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+namespace Domain.Entities;
 
 public class User
 {
@@ -7,4 +7,5 @@ public class User
     public string UserLastName { get; set; }
     public string UserPass { get; set; }
     public string UserEmail { get; set; }
+    public string FCMToken { get; set; }
 }

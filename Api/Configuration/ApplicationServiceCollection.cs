@@ -1,4 +1,4 @@
-﻿namespace Api.Configuration;
+namespace Api.Configuration;
 
 public static class ApplicationServiceCollection
 {
@@ -6,7 +6,7 @@ public static class ApplicationServiceCollection
     {
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssemblies(Assembly.Load("Application"));
+            config.RegisterServicesFromAssembly(typeof(Application.Commands.SendUpcomingNotificationsCommand).Assembly);
         });
 
         return services;

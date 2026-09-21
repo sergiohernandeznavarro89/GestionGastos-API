@@ -4,4 +4,5 @@ public interface IItemSummaryQueryRepository
 {
     Task<List<ItemSummary>> FindByUserId(int userId);
     Task<List<ItemSummary>> FindExecutedByMonth(int userId, int monthsOffset);
+    Task<List<ItemSummary>> FindUpcomingNotificationsItems(int targetYear, int targetMonth);
 }

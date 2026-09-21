@@ -1,4 +1,4 @@
-﻿namespace Application.Dto;
+namespace Application.Dto;
 
 public class ItemResponse
 {
@@ -23,4 +23,5 @@ public class ItemResponse
     public string ItemTypeDesc { get; set; }
     public string AmmountTypeDesc { get; set; }
     public string PeriodTypeDesc { get; set; }
+    public bool RequiereNotificacion { get; set; }
 }

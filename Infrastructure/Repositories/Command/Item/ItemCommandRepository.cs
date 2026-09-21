@@ -22,7 +22,8 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
                             AmmountTypeId,
                             PeriodTypeId,
                             UserId,
-                            AccountId)
+                            AccountId,
+                            ""RequiereNotificacion"")
                         
                         VALUES
                             (@ItemName,
@@ -38,7 +39,8 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
                             @AmmountTypeId,
                             @PeriodTypeId,
                             @UserId,
-                            @AccountId) RETURNING ItemId";
+                            @AccountId,
+                            @RequiereNotificacion) RETURNING ItemId";
 
         var result = await ExecuteScalarAsync(entity);
         return result;
@@ -59,7 +61,8 @@ public class ItemCommandRepository : GenericRepository<Item>, IItemCommandReposi
                             AmmountTypeId = @AmmountTypeId,
                             PeriodTypeId = @PeriodTypeId,
                             UserId = @UserId,
-                            AccountId = @AccountId
+                            AccountId = @AccountId,
+                            ""RequiereNotificacion"" = @RequiereNotificacion
                         WHERE ItemId = @ItemId";
 
         var result = await ExecuteAsync(entity);

@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Repositories.Query;
+namespace Infrastructure.Repositories.Query;
 
 public class UserQueryRepository : GenericRepository<User>, IUserQueryRepository
 {
@@ -19,6 +19,14 @@ public class UserQueryRepository : GenericRepository<User>, IUserQueryRepository
     {
         Param = new { Email = email };
         QueryString = $"SELECT * FROM {TABLE} WHERE userEmail = @Email";
+        var result = await FindFirstOrDefaultAsync();
+        return result;
+    }
+
+    public async Task<User> FindById(int userId)
+    {
+        Param = new { UserId = userId };
+        QueryString = $"SELECT * FROM {TABLE} WHERE UserId = @UserId";
         var result = await FindFirstOrDefaultAsync();
         return result;
     }

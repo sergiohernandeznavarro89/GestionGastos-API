@@ -34,4 +34,12 @@ public class UserCommandRepository : GenericRepository<Domain.Entities.User>, IU
         var result = await ExecuteAsync();
         return result;
     }
+
+    public async Task<int> UpdateFCMToken(int userId, string token)
+    {
+        Param = new { UserId = userId, FCMToken = token };
+        QueryString = $@"UPDATE Users SET ""FCMToken"" = @FCMToken WHERE UserId = @UserId";
+        var result = await ExecuteAsync();
+        return result;
+    }
 }

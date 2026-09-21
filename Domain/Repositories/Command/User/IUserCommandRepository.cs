@@ -7,4 +7,5 @@ public interface IUserCommandRepository : IGenericRepository<User>
 {
     Task<int> Add(User entity);
     Task<int> Delete(User entity);
+    Task<int> UpdateFCMToken(int userId, string token);
 }

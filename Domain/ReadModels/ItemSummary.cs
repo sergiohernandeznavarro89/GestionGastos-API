@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+namespace Domain.Entities;
 
 public class ItemSummary
 {
@@ -23,4 +23,5 @@ public class ItemSummary
     public string ItemTypeDesc { get; set; }
     public string AmmountTypeDesc { get; set; }
     public string PeriodTypeDesc { get; set; }
+    public bool RequiereNotificacion { get; set; }
 }
