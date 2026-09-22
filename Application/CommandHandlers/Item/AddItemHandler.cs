@@ -1,4 +1,4 @@
-﻿namespace Application.CommandHandlers;
+namespace Application.CommandHandlers;
 
 public class AddItemHandler : IRequestHandler<AddItemCommand, AddItemResponse>
 {
@@ -50,11 +50,11 @@ public class AddItemHandler : IRequestHandler<AddItemCommand, AddItemResponse>
             response.Success = true;
             response.Message = "Item created succesfully";
         }
-        catch(Exception)
+        catch(Exception ex)
         {
             unitOfWork.UndoChanges();
             response.Success = false;
-            response.Message = "Error to create Item";
+            response.Message = "Error to create Item: " + ex.Message + (ex.InnerException != null ? " | " + ex.InnerException.Message : "");
         }
         return response;
     }

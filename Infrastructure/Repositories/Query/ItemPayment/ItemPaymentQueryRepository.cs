@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Repositories.Query;
+namespace Infrastructure.Repositories.Query;
 
 public class ItemPaymentQueryRepository : GenericRepository<ItemPayment>, IItemPaymentQueryRepository
 {    
@@ -12,8 +12,8 @@ public class ItemPaymentQueryRepository : GenericRepository<ItemPayment>, IItemP
         QueryString = $@"SELECT *
                         FROM ItemPayment
                         WHERE ItemId = @ItemId
-                            AND MONTH(PaymentDate) = MONTH(GETDATE())
-                            AND YEAR(PaymentDate) = YEAR(GETDATE());";
+                            AND EXTRACT(MONTH FROM PaymentDate) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)
+                            AND EXTRACT(YEAR FROM PaymentDate) = EXTRACT(YEAR FROM CURRENT_TIMESTAMP);";
 
         var result = await FindFirstOrDefaultAsync();
         return result;
@@ -25,8 +25,8 @@ public class ItemPaymentQueryRepository : GenericRepository<ItemPayment>, IItemP
         QueryString = $@"SELECT *
                         FROM ItemPayment
                         WHERE ItemId = @ItemId
-                            AND MONTH(PaymentDate) = MONTH(DATEADD(MONTH, 1, GETDATE()))
-                            AND YEAR(PaymentDate) = YEAR(DATEADD(MONTH, 1, GETDATE()));";
+                            AND EXTRACT(MONTH FROM PaymentDate) = EXTRACT(MONTH FROM (CURRENT_TIMESTAMP + INTERVAL '1 month'))
+                            AND EXTRACT(YEAR FROM PaymentDate) = EXTRACT(YEAR FROM (CURRENT_TIMESTAMP + INTERVAL '1 month'));";
 
         var result = await FindFirstOrDefaultAsync();
         return result;

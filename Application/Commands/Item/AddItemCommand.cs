@@ -1,4 +1,4 @@
-﻿namespace Application.Commands;
+namespace Application.Commands;
 
 public class AddItemCommand : IRequest<AddItemResponse>
 {
@@ -17,4 +17,5 @@ public class AddItemCommand : IRequest<AddItemResponse>
     public int PeriodTypeId { get; set; }
     public int UserId { get; set; }
     public int AccountId { get; set; }
+    public bool RequiereNotificacion { get; set; }
 }

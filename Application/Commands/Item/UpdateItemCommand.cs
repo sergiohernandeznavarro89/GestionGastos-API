@@ -1,4 +1,4 @@
-﻿namespace Application.Commands;
+namespace Application.Commands;
 
 public class UpdateItemCommand : IRequest<UpdateItemResponse>
 {
@@ -15,4 +15,5 @@ public class UpdateItemCommand : IRequest<UpdateItemResponse>
     public int ItemTypeId { get; set; }
     public int AmmountTypeId { get; set; }
     public int AccountId { get; set; }
+    public bool RequiereNotificacion { get; set; }
 }

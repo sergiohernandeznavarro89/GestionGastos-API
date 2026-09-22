@@ -51,6 +51,9 @@ public static class InfrastructureServiceCollection
         //DATABASE CONNECTION
         services.AddScoped<IDatabaseConnection, DatabaseConnection>();
 
+        //SERVICES
+        services.AddScoped<Domain.Services.IPushNotificationService, Infrastructure.Services.PushNotificationService>();
+
         return services;
     }
 

@@ -1,0 +1,17 @@
+name: Notification Scheduled Job
+
+on:
+  schedule:
+    # Se ejecuta a las 10:00 UTC los días 15 y 28 de cada mes
+    - cron: '0 10 15,28 * *'
+  workflow_dispatch: # Te permite ejecutarlo a mano desde la web de GitHub para probarlo
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Notifications Endpoint
+        run: |
+          curl -X POST https://gestiongastosapi.azurewebsites.net/api/Notification/trigger-upcoming \
+          -H "Content-Type: application/json" \
+          -H "Content-Length: 0"

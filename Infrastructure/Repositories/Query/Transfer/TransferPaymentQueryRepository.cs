@@ -28,8 +28,8 @@ public class TransferPaymentQueryRepository : GenericRepository<TransferPayment>
         QueryString = $@"SELECT *
                         FROM TransferPayment
                         WHERE TransferId = @TransferId
-                            AND MONTH(PaymentDate) = MONTH(GETDATE())
-                            AND YEAR(PaymentDate) = YEAR(GETDATE());";
+                            AND EXTRACT(MONTH FROM PaymentDate) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)
+                            AND EXTRACT(YEAR FROM PaymentDate) = EXTRACT(YEAR FROM CURRENT_TIMESTAMP);";
 
         var result = await FindFirstOrDefaultAsync();
         return result;
@@ -41,8 +41,8 @@ public class TransferPaymentQueryRepository : GenericRepository<TransferPayment>
         QueryString = $@"SELECT *
                         FROM TransferPayment
                         WHERE TransferId = @TransferId
-                            AND MONTH(PaymentDate) = MONTH(DATEADD(MONTH, 1, GETDATE()))
-                            AND YEAR(PaymentDate) = YEAR(DATEADD(MONTH, 1, GETDATE()));";
+                            AND EXTRACT(MONTH FROM PaymentDate) = EXTRACT(MONTH FROM (CURRENT_TIMESTAMP + INTERVAL '1 month'))
+                            AND EXTRACT(YEAR FROM PaymentDate) = EXTRACT(YEAR FROM (CURRENT_TIMESTAMP + INTERVAL '1 month'));";
 
         var result = await FindFirstOrDefaultAsync();
         return result;

@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 using System.Threading.Tasks;
 using Dapper;
 
@@ -38,7 +38,7 @@ namespace Domain.Configuration
             {
                 try
                 {
-                    SqlConnection sqlConnection = new SqlConnection(_config.CnnString);
+                    NpgsqlConnection sqlConnection = new NpgsqlConnection(_config.CnnString);
                     sqlConnection.Open();
                     Connection = sqlConnection;
                     return this;

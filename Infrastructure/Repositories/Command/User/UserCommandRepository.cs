@@ -17,12 +17,12 @@ public class UserCommandRepository : GenericRepository<Domain.Entities.User>, IU
                              UserLastName,
                              UserPass,
                              UserEmail)
-                        OUTPUT INSERTED.UserId
+                        
                         VALUES
                             (@UserName,
                              @UserLastName,
                              @UserPass,
-                             @UserEmail)";
+                             @UserEmail) RETURNING UserId";
         var result = await ExecuteScalarAsync(entity);
         return result;
     }
@@ -31,6 +31,14 @@ public class UserCommandRepository : GenericRepository<Domain.Entities.User>, IU
     {
         Param = new { entity.UserId };
         QueryString = $@"DELETE FROM Users WHERE UserId = @UserId";
+        var result = await ExecuteAsync();
+        return result;
+    }
+
+    public async Task<int> UpdateFCMToken(int userId, string token)
+    {
+        Param = new { UserId = userId, FCMToken = token };
+        QueryString = $@"UPDATE Users SET ""FCMToken"" = @FCMToken WHERE UserId = @UserId";
         var result = await ExecuteAsync();
         return result;
     }

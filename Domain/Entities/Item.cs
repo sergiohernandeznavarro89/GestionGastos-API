@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+namespace Domain.Entities;
 
 public class Item
 {
@@ -17,4 +17,5 @@ public class Item
     public int PeriodTypeId { get; set; }
     public int UserId { get; set; }
     public int AccountId { get; set; }
+    public bool RequiereNotificacion { get; set; }
 }
